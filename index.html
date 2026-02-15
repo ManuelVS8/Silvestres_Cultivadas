@@ -74,13 +74,16 @@
 
         .mute-btn{ position:absolute; top:1rem; right:1rem; background:var(--orange); color:#fff; border:2px solid #fff; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; z-index:100; }
 
-        /* Juego: Imágenes */
+        /* Juego: Imágenes y Botones */
         .j1-display { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 1rem; flex:1; justify-content: center; }
+        
+        /* Estilo mejorado de tarjeta */
         .img-card { width: 100%; max-width: 500px; aspect-ratio: 4/3; background: #fff; border: 4px solid #e6f2ff; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
         .img-card img { width: 100%; height: 100%; object-fit: cover; }
         
         .j1-controls { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; width: 100%; }
         
+        /* Estilo mejorado de botones (Tomado del modelo propuesto) */
         .btn-j1 { 
             width: 180px; 
             height: 120px; 
@@ -150,7 +153,7 @@
         </div>
         <div class="j1-display">
             <div class="img-card" id="j1Card">
-                <img id="currentImg" src="" alt="Paisaje">
+                <img id="j1Img" src="" alt="Paisaje">
             </div>
             <div class="j1-controls">
                 <button class="btn btn-j1 btn-green" id="btnSilvestre">
@@ -181,38 +184,32 @@
 </div>
 
 <script>
-    // Configuración de Audios (URLs directas)
+    // Configuración de Audios (URLs seguras y corregidas)
     const audioFiles = {
-        completado: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Completado.mp3',
-        correcto: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Correcto.mp3',
-        victoria: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Termin%C3%A9.mp3',
-        error: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Error.mp3',
-        tap: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Tap.mp3'
+        completado: 'https://cdn.jsdelivr.net/gh/ManuelVS8/Efectos_audio@main/Completado.mp3',
+        correcto: 'https://cdn.jsdelivr.net/gh/ManuelVS8/Efectos_audio@main/Correcto.mp3',
+        victoria: 'https://cdn.jsdelivr.net/gh/ManuelVS8/Efectos_audio@main/Termin%C3%A9.mp3',
+        error: 'https://cdn.jsdelivr.net/gh/ManuelVS8/Efectos_audio@main/Error.mp3',
+        tap: 'https://cdn.jsdelivr.net/gh/ManuelVS8/Efectos_audio@main/Tap.mp3'
     };
 
     // Datos de imágenes
-    const SILVESTRES = [
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S1.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S2.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S3.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S4.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S5.png'
-    ];
-    const CULTIVADAS = [
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D1.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D2.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D3.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D4.png',
-        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D5.png'
+    // True = Silvestre, False = Cultivada
+    const J1_ITEMS = [
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S1.png', isWild: true },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S2.png', isWild: true },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S3.png', isWild: true },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S4.png', isWild: true },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S5.png', isWild: true },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D1.png', isWild: false },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D2.png', isWild: false },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D3.png', isWild: false },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D4.png', isWild: false },
+        { src: 'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D5.png', isWild: false }
     ];
 
-    let isMuted = false;
-    let startTime = 0;
-    let timerInterval = null;
-    let totalElapsed = 0;
-    let gameData = [];
-    let currentIndex = 0;
-    let correctAnswers = 0;
+    let isMuted = false, startTime = 0, timerInterval = null, totalElapsed = 0;
+    let j1Idx = 0, j1Correct = 0, j1ActiveList = [];
 
     // Precarga de audio
     const audioObjects = {};
@@ -222,34 +219,27 @@
     });
 
     function playSnd(key) {
-        if (isMuted) return;
-        const sound = audioObjects[key];
-        sound.currentTime = 0;
-        sound.play().catch(e => console.log("Audio play error:", e));
+        if(isMuted) return;
+        const a = audioObjects[key];
+        a.currentTime = 0;
+        a.play().catch(e => console.log("Audio play error:", e));
     }
 
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[array[i]]];
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
+    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+    
     function formatTime(ms) {
-        const totalSeconds = ms / 1000;
-        const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-        const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
-        const tenths = Math.floor((ms % 1000) / 100);
-        return `${minutes}:${seconds}.${tenths}`;
+        const d = ms / 1000;
+        const m = Math.floor(d / 60).toString().padStart(2, '0');
+        const s = Math.floor(d % 60).toString().padStart(2, '0');
+        const dec = Math.round((d % 1) * 10);
+        return `${m}:${s}.${dec}`;
     }
 
-    function applyShake() {
-        const card = document.getElementById('j1Card');
-        card.classList.remove('shake');
-        void card.offsetWidth; // trigger reflow
-        card.classList.add('shake');
+    function applyShake(id) {
+        const el = document.getElementById(id);
+        el.classList.remove('shake');
+        void el.offsetWidth;
+        el.classList.add('shake');
     }
 
     function showScreen(id) {
@@ -257,71 +247,54 @@
         document.getElementById(id).classList.add('active');
     }
 
-    function initGame() {
-        currentIndex = 0;
-        correctAnswers = 0;
-        gameData = [];
-        
-        SILVESTRES.forEach(url => gameData.push({ url, type: 'silvestre' }));
-        CULTIVADAS.forEach(url => gameData.push({ url, type: 'cultivada' }));
-        
-        // Barajado aleatorio
-        gameData.sort(() => Math.random() - 0.5);
-        
-        updateCard();
+    function initJ1() {
+        j1Idx = 0; j1Correct = 0;
+        j1ActiveList = shuffle([...J1_ITEMS]);
+        updateJ1UI();
     }
 
-    function updateCard() {
-        if (currentIndex >= gameData.length) {
-            finishGame();
+    function updateJ1UI() {
+        if(j1Idx >= j1ActiveList.length) {
+            setTimeout(showFinal, 600);
             return;
         }
-        
-        const item = gameData[currentIndex];
-        document.getElementById('currentImg').src = item.url;
-        document.getElementById('prog1').style.width = `${(currentIndex / gameData.length) * 100}%`;
+        document.getElementById('j1Img').src = j1ActiveList[j1Idx].src;
+        document.getElementById('prog1').style.width = ((j1Idx / j1ActiveList.length) * 100) + '%';
     }
 
-    function handleChoice(choice) {
-        const currentItem = gameData[currentIndex];
-        if (choice === currentItem.type) {
-            correctAnswers++;
+    function checkJ1(userChoiceIsWild) {
+        if(userChoiceIsWild === j1ActiveList[j1Idx].isWild) {
+            j1Correct++;
             playSnd('correcto');
         } else {
             playSnd('error');
-            applyShake();
+            applyShake('j1Card');
         }
-        
-        currentIndex++;
-        setTimeout(updateCard, 300);
+        j1Idx++;
+        updateJ1UI();
     }
 
-    function finishGame() {
+    function showFinal() {
         clearInterval(timerInterval);
-        const score = Math.round((correctAnswers / gameData.length) * 100);
+        showScreen('finalScreen');
+        const finalScore = Math.round((j1Correct / J1_ITEMS.length) * 100);
         
-        document.getElementById('finalScore').textContent = score;
+        document.getElementById('finalScore').textContent = finalScore;
         document.getElementById('totalTime').textContent = formatTime(totalElapsed);
-        
-        const trophy = document.getElementById('trophyBox');
-        const msg = document.getElementById('finalMsg');
-        
-        if (score === 100) {
-            trophy.style.display = 'block';
-            msg.textContent = "¡Enhorabuena, puntuación máxima!";
+
+        if(finalScore === 100) {
+            document.getElementById('trophyBox').style.display = 'block';
+            document.getElementById('finalMsg').textContent = '¡Enhorabuena, puntuación máxima!';
             playSnd('victoria');
-            createConfetti();
+            for(let i=0; i<80; i++) createConfetti();
         } else {
-            trophy.style.display = 'none';
-            msg.textContent = "¡Buen trabajo! Sigue practicando";
+            document.getElementById('finalMsg').textContent = '¡Buen trabajo! Sigue practicando';
             playSnd('completado');
         }
-        
-        showScreen('finalScreen');
     }
 
     function createConfetti() {
-        for(let i = 0; i < 100; i++) {
+        for(let i=0; i<100; i++){
             setTimeout(() => {
                 const c = document.createElement('div');
                 c.className = 'confetti';
@@ -338,32 +311,25 @@
 
     // --- EVENTOS ---
     document.getElementById('startBtn').onclick = () => {
-        // Desbloquear audio en navegadores modernos
         const context = new (window.AudioContext || window.webkitAudioContext)();
         if (context.state === 'suspended') context.resume();
         
         playSnd('tap');
         showScreen('game1Screen');
         startTime = Date.now();
-        timerInterval = setInterval(() => {
-            totalElapsed = Date.now() - startTime;
-            document.getElementById('timerDisplay').textContent = formatTime(totalElapsed);
-        }, 100);
-        initGame();
+        timerInterval = setInterval(() => { totalElapsed = Date.now() - startTime; document.getElementById('timerDisplay').textContent = formatTime(totalElapsed); }, 100);
+        initJ1();
     };
 
-    document.getElementById('btnSilvestre').onclick = () => handleChoice('silvestre');
-    document.getElementById('btnCultivada').onclick = () => handleChoice('cultivada');
-
+    document.getElementById('btnSilvestre').onclick = () => checkJ1(true);
+    document.getElementById('btnCultivada').onclick = () => checkJ1(false);
+    
     document.getElementById('restartBtn').onclick = () => {
         playSnd('tap');
         location.reload();
     };
-
-    document.getElementById('muteBtn').onclick = () => {
-        isMuted = !isMuted;
-        document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊';
-    };
+    
+    document.getElementById('muteBtn').onclick = () => { isMuted = !isMuted; document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊'; };
 </script>
 </body>
 </html>
