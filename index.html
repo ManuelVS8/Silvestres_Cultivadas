@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="google" content="notranslate">
-    <title>¿Cuánto sabes sobre las plantas?</title>
+    <title>Plantas silvestres y plantas cultivadas</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/icono.ico">
     <style>
         /* ====== Reset & base ====== */
@@ -38,9 +38,9 @@
             display:flex; flex-direction:column;
         }
         header{ text-align:center; margin-bottom:.8rem; margin-top:0.5rem; }
-        h1{ color:var(--blue-dark); font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900; letter-spacing:.5px; margin-bottom: 0.5rem; }
+        h1{ color:var(--blue-dark); font-size:clamp(1.8rem,5vw,2.5rem); font-weight:900; letter-spacing:.5px; margin-bottom: 0.5rem; }
         .subtitle{ color:var(--blue-700); font-size:clamp(1rem,3vw,1.3rem); margin-top:.25rem; font-weight: 600; line-height: 1.4; }
-        .highlight-keyword{ color:var(--orange); font-weight:800; }
+        .highlight-orange{ color:var(--orange); font-weight:800; }
         .text-green { color: var(--green); font-weight: 800; }
         .text-red { color: var(--red); font-weight: 800; }
 
@@ -67,37 +67,31 @@
         /* Pantalla Inicio */
         .start-content{ display:flex; flex-direction:column; align-items:center; flex:1; padding:1rem; text-align: center; }
         .advice-box{ background:var(--panel); border-left:5px solid var(--blue-700); padding:1.5rem; border-radius:12px;
-            color:var(--blue-700); max-width:800px; font-size:1.2rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        .advice-anim-text { display: block; text-align: center; font-weight: 900; margin-top: 1rem; font-size: 1.5rem; }
+            color:var(--blue-700); max-width:850px; font-size:1.15rem; line-height: 1.6; margin-bottom: 1rem; text-align: justify; }
+        .luck-text { display: block; text-align: center; font-weight: 900; margin-top: 1rem; font-size: 1.4rem; color: var(--blue-dark); }
         .start-image-container { width: 100%; display: flex; justify-content: center; margin-top: auto; }
-        .start-image{ max-width: 450px; width: 100%; height: auto; }
+        .start-image{ max-width: 400px; width: 100%; height: auto; }
 
         .mute-btn{ position:absolute; top:1rem; right:1rem; background:var(--orange); color:#fff; border:2px solid #fff; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; z-index:100; }
 
-        /* Juego: Verdadero/Falso */
-        .j1-display { display: flex; flex-direction: column; align-items: center; gap: 2rem; padding: 1rem; flex:1; justify-content: center; }
-        .img-card { width: 100%; max-width: 600px; min-height: 220px; background: #fff; border: 4px solid #e6f2ff; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0,0,0,0.08); padding: 2rem; position: relative; }
-        #j1Text { font-size: 1.6rem; font-weight: 700; color: var(--blue-dark); text-align: center; line-height: 1.4; margin-bottom: 1.5rem; }
+        /* Juego: Imágenes */
+        .j1-display { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 1rem; flex:1; justify-content: center; }
+        .img-card { width: 100%; max-width: 500px; aspect-ratio: 4/3; background: #fff; border: 4px solid #e6f2ff; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
+        .img-card img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Botón Play Circular SVG */
-        .btn-repeat { background: var(--blue-600); width: 65px; height: 65px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .btn-repeat:hover { background: var(--orange); transform: scale(1.1); box-shadow: 0 6px 14px rgba(0,0,0,0.2); }
-        .btn-repeat svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
-
         .j1-controls { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; width: 100%; }
         
-        /* BOTONES 4:3 con iconos */
         .btn-j1 { 
             width: 180px; 
-            height: 130px; 
+            height: 120px; 
             flex-direction: column;
             padding: 10px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             gap: 8px;
         }
-        .btn-j1 .icon-large { font-size: 2.5rem; }
+        .btn-j1 .icon-large { font-size: 2.2rem; }
         .btn-green { background-color: var(--green) !important; }
         .btn-red { background-color: var(--red) !important; }
 
@@ -110,7 +104,7 @@
         .school-logo { width: 180px; margin-top: 1rem; }
         .credit { font-weight: 700; color: #555; }
 
-        /* Animaciones */
+        /* Animación Shake */
         .shake { animation: shakeAnim 0.4s cubic-bezier(.36,.07,.19,.97) both; }
         @keyframes shakeAnim {
             10%, 90% { transform: translate3d(-2px, 0, 0); }
@@ -130,13 +124,13 @@
 
     <section class="screen active" id="startScreen">
         <header>
-            <h1>¿Cuánto sabes sobre las plantas?</h1>
-            <div class="subtitle">Lee y escuchas las afirmaciones sobre las plantas e indica si son verdaderas o falsas</div>
+            <h1>Plantas silvestres y plantas cultivadas</h1>
+            <div class="subtitle">Identifica los distintos tipos de paisaje según sean de plantas silvestres o plantas cultivadas.</div>
         </header>
         <div class="start-content">
             <div class="advice-box">
-                Lee y escuchas las afirmaciones sobre <span class="highlight-keyword">las plantas</span>, <span class="highlight-keyword">verdadero</span> y <span class="highlight-keyword">falso</span>.
-                <div class="advice-anim-text"><b>¡Ánimo!</b></div>
+                Recuerda: las plantas <span class="highlight-orange">silvestres</span> crecen en la naturaleza sin que nadie las cuide. Las plantas <span class="highlight-orange">cultivadas</span> son sembradas y cuidadas por las personas para obtener productos: <span class="highlight-orange">alimentos</span>, <span class="highlight-orange">madera</span>, <span class="highlight-orange">papel</span>, <span class="highlight-orange">corcho</span>, etc.
+                <span class="luck-text">¡Buena suerte!</span>
             </div>
             <div class="start-image-container">
                 <img class="start-image" src="https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/refs/heads/main/Ni%C3%B1os.png" alt="Niños">
@@ -147,8 +141,8 @@
 
     <section class="screen" id="game1Screen">
         <header>
-            <h1>¿Verdadero o falso?</h1>
-            <div class="subtitle">Escucha y lee las siguientes informaciones e indica si son <span class="text-green">verdaderas</span> o <span class="text-red">falsas</span>.</div>
+            <h1>¿Plantas silvestres o cultivadas?</h1>
+            <div class="subtitle">Indica si son plantas <span class="text-green">silvestres</span> o plantas <span class="text-red">cultivadas</span></div>
         </header>
         <div class="game-info">
             <div class="progress-bar"><div class="progress-fill" id="prog1"></div></div>
@@ -156,26 +150,23 @@
         </div>
         <div class="j1-display">
             <div class="img-card" id="j1Card">
-                <p id="j1Text"></p>
-                <div class="btn-repeat" id="repeatAudioBtn" title="Escuchar de nuevo">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
+                <img id="currentImg" src="" alt="Paisaje">
             </div>
             <div class="j1-controls">
-                <button class="btn btn-j1 btn-green" id="btnVerdadero">
-                    <span class="icon-large">✅</span>
-                    Verdadero
+                <button class="btn btn-j1 btn-green" id="btnSilvestre">
+                    <span class="icon-large">🌿</span>
+                    Silvestres
                 </button>
-                <button class="btn btn-j1 btn-red" id="btnFalso">
-                    <span class="icon-large">⛔</span>
-                    Falso
+                <button class="btn btn-j1 btn-red" id="btnCultivada">
+                    <span class="icon-large">🚜</span>
+                    Cultivadas
                 </button>
             </div>
         </div>
     </section>
 
     <section class="screen" id="finalScreen">
-        <header><h1>¿Cuánto sabes sobre las plantas?</h1></header>
+        <header><h1>Plantas silvestres y plantas cultivadas</h1></header>
         <div class="results">
             <div id="trophyBox">🏆</div>
             <div style="font-size: 1.5rem; font-weight: 700;">Puntuación:</div>
@@ -190,33 +181,40 @@
 </div>
 
 <script>
-    // Configuración de Audios del Sistema
+    // Configuración de Audios (URLs directas)
     const audioFiles = {
-        completado: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/refs/heads/main/Completado.mp3',
-        correcto: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/refs/heads/main/Correcto.mp3',
-        victoria: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/refs/heads/main/Termin%C3%A9.mp3',
-        error: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/refs/heads/main/Error.mp3',
-        tap: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/refs/heads/main/Tap.mp3'
+        completado: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Completado.mp3',
+        correcto: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Correcto.mp3',
+        victoria: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Termin%C3%A9.mp3',
+        error: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Error.mp3',
+        tap: 'https://raw.githubusercontent.com/ManuelVS8/Efectos_audio/main/Tap.mp3'
     };
 
-    // Datos del Juego
-    const J1_ITEMS = [
-        { text: "Las plantas nacen, crecen, se reproducen y mueren.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/V1.mp3", isTrue: true },
-        { text: "Las plantas necesitan tierra, agua, luz y aire.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/V2.mp3", isTrue: true },
-        { text: "Las plantas proporcionan alimentos, materiales y oxígeno.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/V3.mp3", isTrue: true },
-        { text: "Las hojas permiten respirar y fabrican el alimento de la planta.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/V4.mp3", isTrue: true },
-        { text: "Las plantas con flores dan frutos con semillas.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/V5.mp3", isTrue: true },
-        { text: "Los arbustos tienen tronco duro y grueso.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/F1.mp3", isTrue: false },
-        { text: "En las praderas encontramos muchos árboles.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/F2.mp3", isTrue: false },
-        { text: "Las plantas cultivadas crecen solas sin que nadie las cuide.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/F3.mp3", isTrue: false },
-        { text: "Las partes de las plantas son: raíz, tallo y árbol.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/F4.mp3", isTrue: false },
-        { text: "Las plantas no son seres vivos.", audio: "https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Verdadero_falso/F5.mp3", isTrue: false }
+    // Datos de imágenes
+    const SILVESTRES = [
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S1.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S2.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S3.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S4.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/S5.png'
+    ];
+    const CULTIVADAS = [
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D1.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D2.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D3.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D4.png',
+        'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Planta1/Silvestre_domestica/D5.png'
     ];
 
-    let isMuted = false, startTime = 0, timerInterval = null, totalElapsed = 0;
-    let j1Idx = 0, j1Correct = 0, j1ActiveList = [];
-    let currentVoiceAudio = null;
+    let isMuted = false;
+    let startTime = 0;
+    let timerInterval = null;
+    let totalElapsed = 0;
+    let gameData = [];
+    let currentIndex = 0;
+    let correctAnswers = 0;
 
+    // Precarga de audio
     const audioObjects = {};
     Object.keys(audioFiles).forEach(key => {
         audioObjects[key] = new Audio(audioFiles[key]);
@@ -224,40 +222,34 @@
     });
 
     function playSnd(key) {
-        if(isMuted) return;
-        const a = audioObjects[key];
-        a.currentTime = 0;
-        a.play().catch(e => console.log("Error audio:", e));
+        if (isMuted) return;
+        const sound = audioObjects[key];
+        sound.currentTime = 0;
+        sound.play().catch(e => console.log("Audio play error:", e));
     }
 
-    // Función de voz con retardo opcional de 500ms
-    function playVoice(url, delay = 0) {
-        if(isMuted) return;
-        if(currentVoiceAudio) { currentVoiceAudio.pause(); currentVoiceAudio = null; }
-        
-        const secureUrl = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-        
-        setTimeout(() => {
-            currentVoiceAudio = new Audio(secureUrl);
-            currentVoiceAudio.play().catch(e => console.log("Error voz:", e));
-        }, delay);
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[array[i]]];
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 
-    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
-    
     function formatTime(ms) {
-        const d = ms / 1000;
-        const m = Math.floor(d / 60).toString().padStart(2, '0');
-        const s = Math.floor(d % 60).toString().padStart(2, '0');
-        const dec = Math.round((d % 1) * 10);
-        return `${m}:${s}.${dec}`;
+        const totalSeconds = ms / 1000;
+        const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
+        const tenths = Math.floor((ms % 1000) / 100);
+        return `${minutes}:${seconds}.${tenths}`;
     }
 
-    function applyShake(id) {
-        const el = document.getElementById(id);
-        el.classList.remove('shake');
-        void el.offsetWidth;
-        el.classList.add('shake');
+    function applyShake() {
+        const card = document.getElementById('j1Card');
+        card.classList.remove('shake');
+        void card.offsetWidth; // trigger reflow
+        card.classList.add('shake');
     }
 
     function showScreen(id) {
@@ -266,59 +258,70 @@
     }
 
     function initGame() {
-        j1Idx = 0; j1Correct = 0;
-        j1ActiveList = shuffle([...J1_ITEMS]);
-        updateCard(false); // La primera tarjeta suena sin retardo
+        currentIndex = 0;
+        correctAnswers = 0;
+        gameData = [];
+        
+        SILVESTRES.forEach(url => gameData.push({ url, type: 'silvestre' }));
+        CULTIVADAS.forEach(url => gameData.push({ url, type: 'cultivada' }));
+        
+        // Barajado aleatorio
+        gameData.sort(() => Math.random() - 0.5);
+        
+        updateCard();
     }
 
-    function updateCard(shouldDelay = true) {
-        if(j1Idx >= j1ActiveList.length) {
-            setTimeout(showFinal, 600);
+    function updateCard() {
+        if (currentIndex >= gameData.length) {
+            finishGame();
             return;
         }
-        const item = j1ActiveList[j1Idx];
-        document.getElementById('j1Text').textContent = item.text;
-        document.getElementById('prog1').style.width = ((j1Idx / j1ActiveList.length) * 100) + '%';
         
-        // Retrasamos 500ms si viene de una respuesta previa
-        playVoice(item.audio, shouldDelay ? 500 : 0);
+        const item = gameData[currentIndex];
+        document.getElementById('currentImg').src = item.url;
+        document.getElementById('prog1').style.width = `${(currentIndex / gameData.length) * 100}%`;
     }
 
-    function checkAnswer(userChoice) {
-        if(userChoice === j1ActiveList[j1Idx].isTrue) {
-            j1Correct++;
+    function handleChoice(choice) {
+        const currentItem = gameData[currentIndex];
+        if (choice === currentItem.type) {
+            correctAnswers++;
             playSnd('correcto');
         } else {
             playSnd('error');
-            applyShake('j1Card');
+            applyShake();
         }
-        j1Idx++;
-        updateCard(true); // Las siguientes tarjetas suenan con retardo
+        
+        currentIndex++;
+        setTimeout(updateCard, 300);
     }
 
-    function showFinal() {
-        if(currentVoiceAudio) currentVoiceAudio.pause();
+    function finishGame() {
         clearInterval(timerInterval);
-        showScreen('finalScreen');
+        const score = Math.round((correctAnswers / gameData.length) * 100);
         
-        const score = Math.round((j1Correct / J1_ITEMS.length) * 100);
         document.getElementById('finalScore').textContent = score;
         document.getElementById('totalTime').textContent = formatTime(totalElapsed);
-
-        if(score === 100) {
-            document.getElementById('trophyBox').style.display = 'block';
-            document.getElementById('finalMsg').textContent = '¡Enhorabuena, puntuación máxima!';
+        
+        const trophy = document.getElementById('trophyBox');
+        const msg = document.getElementById('finalMsg');
+        
+        if (score === 100) {
+            trophy.style.display = 'block';
+            msg.textContent = "¡Enhorabuena, puntuación máxima!";
             playSnd('victoria');
             createConfetti();
         } else {
-            document.getElementById('trophyBox').style.display = 'none';
-            document.getElementById('finalMsg').textContent = '¡Buen trabajo! Sigue practicando';
+            trophy.style.display = 'none';
+            msg.textContent = "¡Buen trabajo! Sigue practicando";
             playSnd('completado');
         }
+        
+        showScreen('finalScreen');
     }
 
     function createConfetti() {
-        for(let i=0; i<100; i++){
+        for(let i = 0; i < 100; i++) {
             setTimeout(() => {
                 const c = document.createElement('div');
                 c.className = 'confetti';
@@ -333,29 +336,25 @@
         }
     }
 
-    // EVENTOS
+    // --- EVENTOS ---
     document.getElementById('startBtn').onclick = () => {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+        // Desbloquear audio en navegadores modernos
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        if (context.state === 'suspended') context.resume();
+        
         playSnd('tap');
         showScreen('game1Screen');
         startTime = Date.now();
-        timerInterval = setInterval(() => { 
-            totalElapsed = Date.now() - startTime; 
-            document.getElementById('timerDisplay').textContent = formatTime(totalElapsed); 
+        timerInterval = setInterval(() => {
+            totalElapsed = Date.now() - startTime;
+            document.getElementById('timerDisplay').textContent = formatTime(totalElapsed);
         }, 100);
         initGame();
     };
 
-    document.getElementById('repeatAudioBtn').onclick = () => {
-        if (j1Idx < j1ActiveList.length) {
-            playVoice(j1ActiveList[j1Idx].audio, 0); // Al repetir manualmente no hay retardo
-        }
-    };
+    document.getElementById('btnSilvestre').onclick = () => handleChoice('silvestre');
+    document.getElementById('btnCultivada').onclick = () => handleChoice('cultivada');
 
-    document.getElementById('btnVerdadero').onclick = () => checkAnswer(true);
-    document.getElementById('btnFalso').onclick = () => checkAnswer(false);
-    
     document.getElementById('restartBtn').onclick = () => {
         playSnd('tap');
         location.reload();
@@ -364,7 +363,6 @@
     document.getElementById('muteBtn').onclick = () => {
         isMuted = !isMuted;
         document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊';
-        if(isMuted && currentVoiceAudio) currentVoiceAudio.pause();
     };
 </script>
 </body>
